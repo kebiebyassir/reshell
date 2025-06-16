@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/minishell.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s)
 	size_t	len;
 
 	len = ft_strlen(s);
-	dup = malloc((len + 1) * sizeof(char));
+	dup = malloc(((len + 1) * sizeof(char)));
 	if (!dup)
 		return (NULL);
 	i = 0;

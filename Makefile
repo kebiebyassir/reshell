@@ -6,11 +6,15 @@ PRINTF = utils/ft_printf/printf.a
 
 SRCS =  main.c \
 		dup_env.c \
+		ft_garbage.c \
+		tokenize.c \
+		parse_tokens.c \
 		utils/ft_atoi.c \
 		utils/ft_split.c \
 		utils/ft_strchr.c \
 		utils/ft_strcmp.c \
 		utils/ft_strdup.c \
+		utils/ft_strdup_gc.c \
 		utils/ft_strjoin.c \
 		utils/ft_strlen.c \
 		utils/ft_strncmp.c \

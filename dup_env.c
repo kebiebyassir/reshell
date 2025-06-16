@@ -19,7 +19,7 @@ t_env	*create_env(char *envp)
 	}
 	if (envp[i] == '=' && envp[i + 1])
 	{
-		new->value = ft_strdup(envp + i + 1);
+		new->value = ft_strdup((envp + i + 1));
 		if (!new->value)
 		{
 			free(new->key);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/minishell.h"
 
 static int	count_word(char const *s, char c)
 {

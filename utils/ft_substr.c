@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/minishell.h"
 
 char	*ft_substr(const char *s, size_t start, size_t len)
 {

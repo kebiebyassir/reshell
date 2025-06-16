@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/minishell.h"
 
 char	*ft_strtok(char *str, const char *delim, int *index)
 {

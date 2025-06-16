@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strdup_gc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykebieb <ykebieb@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/11 14:29:02 by ykebieb           #+#    #+#             */
-/*   Updated: 2025/06/15 22:29:58 by ykebieb          ###   ########.fr       */
+/*   Created: 2025/06/11 14:29:05 by ykebieb           #+#    #+#             */
+/*   Updated: 2025/06/16 16:00:10 by ykebieb          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*ft_strdup_gc(const char *s, t_gc *gc)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	size_t			i;
+	char	*dup;
+	size_t	i;
+	size_t	len;
 
+	len = ft_strlen(s);
+	dup = gc_malloc(((len + 1) * sizeof(char)), gc);
+	if (!dup)
+		return (NULL);
 	i = 0;
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (str1[i] || str2[i])
+	while (s[i])
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
+		dup[i] = s[i];
 		i++;
 	}
-	return (0);
+	dup[i] = '\0';
+	return (dup);
 }

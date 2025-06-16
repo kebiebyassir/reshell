@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/minishell.h"
 
 int	ft_strlen(const char *s)
 {
