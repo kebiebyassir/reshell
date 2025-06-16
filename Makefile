@@ -4,7 +4,27 @@ FLAGS = -Wall -Wextra -Werror
 NAME =  minishell
 PRINTF = utils/ft_printf/printf.a
 
-SRCS =  *.c \
+SRCS =  main.c \
+		dup_env.c \
+		utils/ft_atoi.c \
+		utils/ft_split.c \
+		utils/ft_strchr.c \
+		utils/ft_strcmp.c \
+		utils/ft_strdup.c \
+		utils/ft_strjoin.c \
+		utils/ft_strlen.c \
+		utils/ft_strncmp.c \
+		utils/ft_strtok.c \
+		utils/ft_substr.c \
+		utils/ft_strncpy.c \
+		utils/ft_memcpy.c \
+		utils/ft_memset.c \
+		utils/ft_bzero.c \
+		utils/ft_calloc.c \
+		utils/ft_realloc.c \
+		utils/ft_isalpha.c \
+		utils/ft_isdigit.c \
+		utils/ft_isalnum.c
 
 
 OBJS = $(SRCS:.c=.o)

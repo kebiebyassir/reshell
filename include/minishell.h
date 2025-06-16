@@ -1,19 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../utils/ft_printf/printf.h"
-# include <fcntl.h>
-# include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include <errno.h>
+# include "utils.h"
 
 typedef struct s_env
 {
@@ -22,6 +10,22 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_gc_list
+{
+	void				*ptr;
+	struct s_gc_list	*next;
+}	t_gc_list;
 
+typedef struct s_gc
+{
+	t_gc_list	*head;
+}	t_gc;
+
+
+// duplicate environnement
+t_env	*create_env(char *envp);
+t_env	*dup_env(char **envp);
+void	free_env(t_env	*env);
+void	print_env(t_env *env);
 
 #endif

@@ -4,9 +4,11 @@ int	main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_env	*env;
+	t_gc	gc;
 
 	(void)ac;
 	(void)av;
+	gc_init(&gc);
 	env = dup_env(envp);
 	while (1)
 	{
@@ -16,9 +18,9 @@ int	main(int ac, char **av, char **envp)
 			printf("exit\n");
 			break;
 		}
-		if (*input) // what this condition means
+		if (*input)
 			add_history(input);
-
 	}
+	free_env(env);
 	return (0);
 }

@@ -1,4 +1,4 @@
-#include "../../include/utils.h"
+#include "../include/utils.h"
 
 int	ft_isalpha(int c)
 {
