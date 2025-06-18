@@ -1,0 +1,98 @@
+free all the allocation
+
+expand variable
+
+store last exit code with waitpid $?
+
+Handle SIGINT, SIGQUIT
+
+Support Pipes and Redirections
+Chain commands with pipes
+Redirect stdin/stdout based on cmd->input_file and cmd->output_file
+Support >>, << (heredoc), etc.
+
+Built-in in parent (like cd)
+
+Redirections:
+word : not a command just a name
+command : a command that exist and we have permission to execute
+per_denied : a command that we don't have permission to execute(permission denied)
+exist_dir : a directory that exist.
+file_name : a name normal.
+special_character : like "|, > , ;"
+> :
+	"word > file_name" :if the file don't exist : create the file, don't write anything in the file and show "word: command not found"(return 127)
+						else the file exist
+							if the file empty : don't write anything in the file and show "word: command not found"(return 127)
+							else : remove anything writed in the file and show "word: command not found"(return 127)
+
+	"command > file_name" :	if the file don't exist : create the file, write the output of the command in the file(return 0)
+							else the file exist
+								if the file empty : write the output of the command in the file(return 0)
+								else : overwrite the output of the command in the file(return 0)
+
+	"per_denied > file_name" :	if the file don't exist : create the file, don't write anything in the file and show "bash: command with path(per_denied): Permission denied"(return 126)
+								else the file exist
+									if the file empty : don't write anything in the file and show "bash: command with path(per_denied): Permission denied"(return 126)
+									else : remove anything writed in the file and show "bash: command with path(per_denied): Permission denied"(return 126)
+
+	"anything > exist_dir": show "bash: exist_dir: Is a directory" (return 1)
+
+	"> anything": just create the file. (return 0)
+
+	"anything >" : show "bash: syntax error near unexpected token 'newline'" (return 2)
+
+	"anything > ambiguous name" : show "bash: "the name": ambiguous redirect" (return 1)
+
+	"anything > special_character" : show "bash: syntax error near unexpected token '"the special_character"'" (return 2)
+
+>> :
+	"word >> file_name":if the file don't exist : create the file, don't write anything in the file and show "word: command not found"(return 127)
+						else the file exist : don't write anything in the file and show "word: command not found"(return 127)
+
+	"command >> file_name" :if the file don't exist : create the file, write the output of the command in the file(return 0)
+							else the file exist : write the output of the command below in the file(return 0)
+
+	"per_denied >> file_name" :	if the file don't exist : create the file, don't write anything in the file and show "bash: command with path(per_denied): Permission denied"(return 126)
+								else the file exist : don't write anything in the file and show "bash: command with path(per_denied): Permission denied"(return 126)
+
+	"anything >> exist_dir": show "bash: exist_dir: Is a directory" (return 1)
+
+	">> anything": just create the file if the file don't exist else nothing. (return 0)
+
+	"anything >>" : show "bash: syntax error near unexpected token 'newline'" (return 2)
+
+	"anything >> ambiguous name" : show "bash: "the name": ambiguous redirect" (return 1)
+
+	"anything >> special_character" : show "bash: syntax error near unexpected token '"the special_character"'" (return 2)
+
+
+command_that_read : like cat, read ...
+normal_command : like ls ...
+< :
+	"anything < special_character" : show "bash: syntax error near unexpected token '"the special_character"'" (return 2)
+
+	"anything <" : show "bash: syntax error near unexpected token 'newline'" (return 2)
+
+	"not_command < file_name" : if the file exist : show "not_command: command not found" (return 127)
+								else : show "bash: file_name: No such file or directory" (return 1)
+
+	"normal_command < file_name" :  if the file exist : the command execute normal (return 0)
+									else : show "bash: file_name: No such file or directory" (return 1)
+
+	"normal_command < exist_dir" : the command execute normal (return 0)
+
+	"command_that_read < exist_dir" : show "command_that_read: exist_dir: Is a directory" (return 1)
+
+	"anything < ambiguous name" : show "bash: "the name": ambiguous redirect" (return 1)
+
+	"< anything":   if anything == ambiguous : show "bash: "the name": ambiguous redirect" (return 1)
+					if exist_dir : nothing (return 0)
+					if file_name :  if exist : nothing (return 0)
+									else : show "bash: file_name: No such file or directory" (return 1)
+					if special_character : show "bash: syntax error near unexpected token '"the special_character"'" (return 2)
+
+	"command_that_read < file_name" :   if the file exist : the command read from the file and do there job (return 0)
+										else : show "bash: file_name: No such file or directory" (return 1)
+
+<< : heredoc

@@ -39,13 +39,13 @@ typedef struct s_gc
 // Token types
 typedef enum
 {
-	TOKEN_WORD,            // normal string
-	TOKEN_PIPE,            // |
-	TOKEN_REDIRECT_IN,     // <
-	TOKEN_REDIRECT_OUT,    // >
-	TOKEN_REDIRECT_APPEND, // >>
-	TOKEN_HEREDOC,         // <<
-	TOKEN_EOF              // EOF
+	WORD,            // normal string
+	PIPE,            // |
+	REDIRECT_IN,     // <
+	REDIRECT_OUT,    // >
+	REDIRECT_APPEND, // >>
+	HEREDOC,         // <<
+	T_EOF              // EOF
 }					t_token_type;
 
 // token struct
@@ -89,24 +89,36 @@ void	*gc_saver(void *p, t_gc *gc);
 void	*gc_malloc(size_t size, t_gc *gc);
 void	gc_free(t_gc *gc);
 
-// lexer and tokenization
-t_lexer	*init_lexer(char	*input, t_gc *gc);
-int		is_special_char(char c);
-char	*read_word(t_lexer *lexer, t_gc *gc);
-t_token	*create_token(t_token_type type, char *value, t_gc *gc);
-void	skip_whitespace(t_lexer *lexer);
-t_token	*get_next_token(t_lexer	*lexer, t_gc *gc);
-t_token	*tokenize(char	*input, t_gc *gc);
+// execution
+char	*get_path(char *cmd, t_env *env_list);
+int 	check_per(t_cmd *cmd, t_env *env_list);
+int		is_builtin(t_cmd *cmds);
+void	execute_builtin(t_cmd *cmds, t_env *env_list);
+void	execute_command(t_cmd *cmds, char **envp, t_env *env_list);
+int		redirection_out(t_cmd *cmd, t_env *env_list, char **envp);
 
-// parsing
-t_cmd	*init_cmd(t_gc *gc);
-char	*get_env_value(t_env *env, char *key);
-char	*expand_variable(char *str, t_env *env, t_gc *gc);
-int		add_arg_to_cmd(t_cmd *cmd, char *arg, t_env *env, t_gc *gc);
-int		handle_redirection(t_cmd *cmd, t_token **myToken);
-t_cmd	*parse_command(t_token **tokens, t_env *env, t_gc *gc);
-t_cmd	*parse_tokens(t_token *tokens, t_env *env, t_gc *gc);
-int		validate_tokens(t_token *tokens);
+// builtins
+
+
+
+// // lexer and tokenization
+// t_lexer	*init_lexer(char	*input, t_gc *gc);
+// int		is_special_char(char c);
+// char	*read_word(t_lexer *lexer, t_gc *gc);
+// t_token	*create_token(t_token_type type, char *value, t_gc *gc);
+// void	skip_whitespace(t_lexer *lexer);
+// t_token	*get_next_token(t_lexer	*lexer, t_gc *gc);
+// t_token	*tokenize(char	*input, t_gc *gc);
+
+// // parsing
+// t_cmd	*init_cmd(t_gc *gc);
+// char	*get_env_value(t_env *env, char *key);
+// char	*expand_variable(char *str, t_env *env, t_gc *gc);
+// int		add_arg_to_cmd(t_cmd *cmd, char *arg, t_env *env, t_gc *gc);
+// int		handle_redirection(t_cmd *cmd, t_token **myToken);
+// t_cmd	*parse_command(t_token **tokens, t_env *env, t_gc *gc);
+// t_cmd	*parse_tokens(t_token *tokens, t_env *env, t_gc *gc);
+// int		validate_tokens(t_token *tokens);
 
 
 // utils

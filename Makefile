@@ -7,8 +7,9 @@ PRINTF = utils/ft_printf/printf.a
 SRCS =  main.c \
 		dup_env.c \
 		ft_garbage.c \
-		tokenize.c \
-		parse_tokens.c \
+		execution/execution.c \
+		execution/check_per.c \
+		execution/redirection_out.c \
 		utils/ft_atoi.c \
 		utils/ft_split.c \
 		utils/ft_strchr.c \
@@ -43,7 +44,7 @@ clean:
 	make -C utils/ft_printf clean
 	rm -f $(OBJS)
 
-fclean: clean
+f: clean
 	make -C utils/ft_printf fclean
 	rm -f $(NAME)
 
