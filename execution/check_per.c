@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 int check_per(t_cmd *cmd, t_env *env_list)
 {

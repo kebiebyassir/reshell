@@ -1,4 +1,4 @@
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 
 int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp)
