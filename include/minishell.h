@@ -98,7 +98,9 @@ void	execute_command(t_cmd *cmds, char **envp, t_env *env_list, t_gc *gc);
 int		redirection_out(t_cmd *cmd, t_env *env_list, char **envp, t_gc *gc);
 
 // builtins
-
+int	ft_env(char **cmds, t_env *env_list);
+int	ft_exit(char	**cmds);
+int ft_pwd();
 
 
 // // lexer and tokenization
