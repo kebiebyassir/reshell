@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
 
-int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp)
+int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp, t_gc *gc)
 {
 	struct stat st;
 	int	status;
@@ -27,7 +27,7 @@ int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp)
 		ft_printf("minishell: %s: ambiguous redirect\n", cmd->output_file);
 		return (1);
 	}
-	status = check_per(cmd, env_list);
+	status = check_per(cmd, env_list, gc);
 	if (status == 1)
 	{
 		fd = open(cmd->output_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -70,7 +70,7 @@ int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp)
 			dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
-		path = get_path(cmd->args[0], env_list);
+		path = get_path(cmd->args[0], env_list, gc);
 		if (!path)
 		{
 			ft_printf("%s: command not found\n", cmd->args[0]);

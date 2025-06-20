@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(const char *s1, const char *s2, t_gc *gc)
 {
 	char	*str;
 	int		s1_len;
@@ -24,7 +24,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	str = malloc(s1_len + s2_len);
+	str = gc_malloc((s1_len + s2_len), gc);
 	if (!str)
 		return (NULL);
 	i = 0;

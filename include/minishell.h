@@ -90,12 +90,12 @@ void	*gc_malloc(size_t size, t_gc *gc);
 void	gc_free(t_gc *gc);
 
 // execution
-char	*get_path(char *cmd, t_env *env_list);
-int 	check_per(t_cmd *cmd, t_env *env_list);
+char	*get_path(char *cmd, t_env *env_list, t_gc *gc);
+int 	check_per(t_cmd *cmd, t_env *env_list, t_gc *gc);
 int		is_builtin(t_cmd *cmds);
-void	execute_builtin(t_cmd *cmds, t_env *env_list);
-void	execute_command(t_cmd *cmds, char **envp, t_env *env_list);
-int		redirection_out(t_cmd *cmd, t_env *env_list, char **envp);
+void	execute_builtin(t_cmd *cmds, t_env *env_list, t_gc *gc);
+void	execute_command(t_cmd *cmds, char **envp, t_env *env_list, t_gc *gc);
+int		redirection_out(t_cmd *cmd, t_env *env_list, char **envp, t_gc *gc);
 
 // builtins
 
@@ -130,7 +130,7 @@ int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 char	*ft_strdup_gc(const char *s, t_gc *gc);
 char	*ft_strdup(const char *s);
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(const char *s1, const char *s2, t_gc *gc);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strlen(const char *s);
 char	*ft_strtok(char *str, const char *delim, int *index);

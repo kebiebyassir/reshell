@@ -21,7 +21,7 @@ int	is_builtin(t_cmd *cmds)
 	return (0);
 }
 
-void	execute_builtin(t_cmd *cmds, t_env *env_list)
+void	execute_builtin(t_cmd *cmds, t_env *env_list, t_gc *gc)
 {
 	if (ft_strcmp(cmds->args[0], "exit") == 0)
 		ft_exit(cmds->args);
@@ -39,7 +39,7 @@ void	execute_builtin(t_cmd *cmds, t_env *env_list)
 	// 	ft_echo();
 }
 
-char	*get_path(char *cmd, t_env *env_list)
+char	*get_path(char *cmd, t_env *env_list, t_gc *gc)
 {
 	t_env	*cur;
 	char	**path;
@@ -48,7 +48,7 @@ char	*get_path(char *cmd, t_env *env_list)
 
 	cur = env_list;
 	if (ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
+		return (ft_strdup_gc(cmd, gc));
 	while (cur && ft_strcmp(cur->key, "PATH") != 0)
 		cur = cur->next;
 	if (!cur || !cur->value)
@@ -59,19 +59,18 @@ char	*get_path(char *cmd, t_env *env_list)
 	i = 0;
 	while (path[i])
 	{
-		command = ft_strjoin(path[i], "/");
-		command = ft_strjoin(command, cmd);
+		command = ft_strjoin(path[i], "/", gc);
+		command = ft_strjoin(command, cmd, gc);
 		if (access(command, X_OK) == 0)
 		{
 			return (command);
 		}
-		free(command);
 		i++;
 	}
 	return (NULL);
 }
 
-void	execute_command(t_cmd *cmds, char **envp, t_env *env_list)
+void	execute_command(t_cmd *cmds, char **envp, t_env *env_list, t_gc *gc)
 {
 	pid_t	pid;
 	char	*path;
@@ -82,10 +81,10 @@ void	execute_command(t_cmd *cmds, char **envp, t_env *env_list)
 		return ;
 	if (is_builtin(cmds))
 	{
-		execute_builtin(cmds, env_list);
+		execute_builtin(cmds, env_list, gc);
 		return ;
 	}
-	checker = check_per(cmds, env_list);
+	checker = check_per(cmds, env_list, gc);
 	if (checker == 1)
 	{
 		ft_printf("%s: command not found\n", cmds->args[0]);
@@ -112,7 +111,7 @@ void	execute_command(t_cmd *cmds, char **envp, t_env *env_list)
 			ft_printf("minishell: syntax error near unexpected token 'newline'\n");
 			return;
 		}
-		path = get_path(cmds->args[0], env_list);
+		path = get_path(cmds->args[0], env_list, gc);
 		if (!path)
 		{
 			ft_printf("%s: command not found\n", cmds->args[0]);

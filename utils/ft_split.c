@@ -96,7 +96,7 @@ char	**ft_split(const char *s, char c)
 
 	if (!s)
 		return (NULL);
-	str = malloc((count_word(s, c) + 1) * sizeof(char *));
+	str = malloc(((count_word(s, c) + 1) * sizeof(char *)));
 	if (!str)
 		return (NULL);
 	if (!words_split(str, s, c))
