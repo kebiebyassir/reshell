@@ -78,7 +78,6 @@ int	redirection_out(t_cmd *cmd, t_env *env_list, char **envp, t_gc *gc)
 		}
 		execve(path, cmd->args, envp);
 		ft_printf("%s: execution failed\n", cmd->args[0]);
-		free(path);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)

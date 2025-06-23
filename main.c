@@ -24,21 +24,21 @@ int	main(int ac, char **av, char **envp)
 		if (*input)
 			add_history(input);
 		// token = tokenize(input, gc);
-		// if (!token)
-		// {
-		// 	gc_free(gc);
-		// 	free_env(env);
-		// 	free(input);
-		// 	exit(2);
-		// }
+		if (!token)
+		{
+			gc_free(gc);
+			free_env(env);
+			free(input);
+			exit(2);
+		}
 		// cmds = parse_tokens(token, env, gc);
-		// if (token)
-		// {
-		// 	gc_free(gc);
-		// 	free_env(env);
-		// 	free(input);
-		// 	exit(2);
-		// }
+		if (token)
+		{
+			gc_free(gc);
+			free_env(env);
+			free(input);
+			exit(2);
+		}
 		free(input);
 	}
 	gc_free(gc);

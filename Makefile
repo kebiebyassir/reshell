@@ -17,6 +17,7 @@ SRCS =  main.c \
 		execution/execution.c \
 		execution/check_per.c \
 		execution/redirection_out.c \
+		execution/builtins.c \
 		utils/ft_atoi.c \
 		utils/ft_split.c \
 		utils/ft_strchr.c \
